@@ -1,0 +1,3 @@
+# 项目排除路径
+/SpringBootDemo/target/
+/SpringBootDemo_i/target/

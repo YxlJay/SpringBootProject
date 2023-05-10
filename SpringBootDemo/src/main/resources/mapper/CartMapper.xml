@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxl.application.mapper.CartMapper">
+
+    <resultMap id="BaseResultMap" type="com.yxl.application.entity.Cart">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="proimg" column="proimg" jdbcType="VARCHAR"/>
+            <result property="profullname" column="profullname" jdbcType="VARCHAR"/>
+            <result property="price" column="price" jdbcType="DOUBLE"/>
+            <result property="num" column="num" jdbcType="INTEGER"/>
+            <result property="users" column="users" jdbcType="INTEGER"/>
+            <result property="product" column="product" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,proimg,profullname,
+        price,num,users,
+        product
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from cart
+        where  id = #{id,jdbcType=INTEGER} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from cart
+        where  id = #{id,jdbcType=INTEGER} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.yxl.application.entity.Cart" useGeneratedKeys="true">
+        insert into cart
+        ( id,proimg,profullname
+        ,price,num,users
+        ,product)
+        values (#{id,jdbcType=INTEGER},#{proimg,jdbcType=VARCHAR},#{profullname,jdbcType=VARCHAR}
+        ,#{price,jdbcType=DOUBLE},#{num,jdbcType=INTEGER},#{users,jdbcType=INTEGER}
+        ,#{product,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.yxl.application.entity.Cart" useGeneratedKeys="true">
+        insert into cart
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="proimg != null">proimg,</if>
+                <if test="profullname != null">profullname,</if>
+                <if test="price != null">price,</if>
+                <if test="num != null">num,</if>
+                <if test="users != null">users,</if>
+                <if test="product != null">product,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=INTEGER},</if>
+                <if test="proimg != null">#{proimg,jdbcType=VARCHAR},</if>
+                <if test="profullname != null">#{profullname,jdbcType=VARCHAR},</if>
+                <if test="price != null">#{price,jdbcType=DOUBLE},</if>
+                <if test="num != null">#{num,jdbcType=INTEGER},</if>
+                <if test="users != null">#{users,jdbcType=INTEGER},</if>
+                <if test="product != null">#{product,jdbcType=INTEGER},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.yxl.application.entity.Cart">
+        update cart
+        <set>
+                <if test="proimg != null">
+                    proimg = #{proimg,jdbcType=VARCHAR},
+                </if>
+                <if test="profullname != null">
+                    profullname = #{profullname,jdbcType=VARCHAR},
+                </if>
+                <if test="price != null">
+                    price = #{price,jdbcType=DOUBLE},
+                </if>
+                <if test="num != null">
+                    num = #{num,jdbcType=INTEGER},
+                </if>
+                <if test="users != null">
+                    users = #{users,jdbcType=INTEGER},
+                </if>
+                <if test="product != null">
+                    product = #{product,jdbcType=INTEGER},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=INTEGER} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.yxl.application.entity.Cart">
+        update cart
+        set 
+            proimg =  #{proimg,jdbcType=VARCHAR},
+            profullname =  #{profullname,jdbcType=VARCHAR},
+            price =  #{price,jdbcType=DOUBLE},
+            num =  #{num,jdbcType=INTEGER},
+            users =  #{users,jdbcType=INTEGER},
+            product =  #{product,jdbcType=INTEGER}
+        where   id = #{id,jdbcType=INTEGER} 
+    </update>
+</mapper>
